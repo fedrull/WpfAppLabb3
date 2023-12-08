@@ -26,7 +26,8 @@
 
         </Grid.ColumnDefinitions>
 
-        <ComboBox Name="CombooBoox" Width="265" Height="26"  Grid.Row="2" Grid.Column="4" Margin="260,10,-505,34" Grid.RowSpan="2" />
+        <ListBox Name="ListUserBox" Width="265" Height="100"  Grid.Row="2" Grid.Column="4" Margin="260,10,-505,34" Grid.RowSpan="2" DisplayMemberPath="UserName"/>
+        
         <Button Name="DeleteBtn" Content="Delete" FontSize="16" FontWeight="Bold" Height="35" Width="70" Grid.ColumnSpan="2" Grid.Row="2" Click="DeleteBtn_Click"/>
         <Button Name="UppdateBtn" Content="Update" FontSize="16" FontWeight="Bold" Height="35" Width="70" Grid.ColumnSpan="2" Grid.Row="3" Click="UppdateBtn_Click"/>
 

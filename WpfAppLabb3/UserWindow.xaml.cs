@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,26 +23,25 @@ namespace WpfAppLabb3
 	public partial class UserWindow : Window
 	{
 		static MongoCrud db = new MongoCrud("WpfLabb3");
-		static List<UserModel> users = new List<UserModel>();
+		static ObservableCollection <UserModel> users = new ObservableCollection<UserModel>();
 
 		public UserWindow()
 		{
 			InitializeComponent();
 			GetUsers();
-			
+			ListUserBox.ItemsSource = users;
 		}
 
 
 		public void GetUsers()
 		{
-			users = db.GetAllUsers("Users");
-			foreach (var user in users)
-			{
-
-				string userString = $"{user.UserName} - {user.Password}";
-				CombooBoox.Items.Add(userString);
-
+			var userlist = db.GetAllUsers("Users");
+			users.Clear();
+			foreach (var user in userlist) 
+			{ 
+				users.Add(user);
 			}
+			ListUserBox.ItemsSource = users;
 		}
 
 		public void DeleteUser1(string table, UserModel user)
@@ -52,8 +52,13 @@ namespace WpfAppLabb3
 
 		private void DeleteBtn_Click(object sender, RoutedEventArgs e)
 		{
-			var user = CombooBoox.SelectedItem as UserModel;
-			DeleteUser1("Users", user);
+			UserModel slectedUser = ListUserBox.SelectedItem as UserModel;
+			if(slectedUser != null)
+			{
+				DeleteUser1("Users", slectedUser);
+				users.Remove(slectedUser);
+			}
+			 
 		}
 
 		private void UppdateBtn_Click(object sender, RoutedEventArgs e)

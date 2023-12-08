@@ -14,7 +14,7 @@ namespace WpfAppLabb3.Data
 		private IMongoDatabase db;
 		public MongoCrud(string databse)
 		{
-			var client = new MongoClient("mongodb://localhost:27017");
+			var client = new MongoClient("");
 			db = client.GetDatabase(databse);
 		}
 
@@ -23,10 +23,9 @@ namespace WpfAppLabb3.Data
 			var collection = db.GetCollection<UserModel>(table);
 			collection.InsertOne(user);
 		}
-		public void DeleteUser(string table, UserModel user) 
+		public void DeleteUser() 
 		{
-			var collection = db.GetCollection<UserModel>(table);
-			collection.DeleteOne(x => x.Id == user.Id);
+		
 		}
 		public List<UserModel> GetAllUsers(string table)
 		{
